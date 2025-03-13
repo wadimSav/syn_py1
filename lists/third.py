@@ -14,6 +14,24 @@ m = 0
 n = 0
 A = []
 
+def min_boats(m, weights):
+    weights.sort(reverse=True)
+    
+    boats = 0
+    left = 0
+    right = len(weights) - 1
+    
+    while left <= right:
+        if right > left and weights[left] + weights[right] <= m:
+            boats += 1
+            left += 1
+            right -= 1
+        else:
+            boats += 1
+            left += 1
+            
+    return boats
+
 while m < 1 or m > 10e6:
     m = int(input("Максимальная грузоподъемность лодки: "))
     if m < 1 or m > 10e6:
@@ -33,6 +51,5 @@ for i in range(n):
             
     A.append(Ai)
     
-boats = math.ceil(sum(A) / m)
 
-print(boats)
+print(min_boats(m, A))
